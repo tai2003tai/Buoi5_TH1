@@ -2,9 +2,9 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import RouterService from "../routers/RouterService";
 import Transaction from "./Transaction";
-import Customers from "./Customers";
+import Customers from "./Customer";
 import Setting from "./Setting";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Make sure you have this installed
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createMaterialBottomTabNavigator();
 

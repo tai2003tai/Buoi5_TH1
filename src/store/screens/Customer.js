@@ -7,4 +7,4 @@ const Customer = ()=>{
         </View>
     )
 }
-export default Customer
+export default Customer;

@@ -1,8 +1,9 @@
 import { Alert, View } from "react-native";
 import { Button, HelperText, Text, TextInput } from "react-native-paper";
 import { useState } from "react";
-import firestore from "@react-native-firebase/firestore";
-import auth from "@react-native-firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore"; // Sử dụng Firebase Web
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // Sử dụng Firebase Web
+import {firebase} from '../../../firebaseConfig';
 
 const Register = ({ navigation }) => {
   const [fullName, setFullName] = useState("");
@@ -19,23 +20,24 @@ const Register = ({ navigation }) => {
   const hasErrorPassword = () => password.length < 6;
   const hasErrorPasswordConfirm = () => passwordConfirm !== password;
 
-  const USERS = firestore().collection("USERS");
+  const auth = getAuth(); // Khởi tạo Auth
+  const firestore = getFirestore(); // Khởi tạo Firestore
 
-  const handleCreateAccount = () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        USERS.doc(email).set({
-          fullName,
-          email,
-          password,
-          phone,
-          address,
-          role: "customer",
-        });
-        navigation.navigate("Login");
-      })
-      .catch((e) => Alert.alert("Tài khoản đã tồn tại"));
+  const handleCreateAccount = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password); // Tạo tài khoản mới
+      await setDoc(doc(firestore, "USERS", email), { // Sử dụng setDoc để thêm thông tin người dùng
+        fullName,
+        email,
+        password,
+        phone,
+        address,
+        role: "customer",
+      });
+      navigation.navigate("Login");
+    } catch (e) {
+      Alert.alert("Tài khoản đã tồn tại"); // Hiển thị thông báo nếu có lỗi
+    }
   };
 
   return (

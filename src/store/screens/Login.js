@@ -1,6 +1,6 @@
 import { View } from "react-native" 
 import { Button, HelperText, Text, TextInput } from "react-native-paper" 
-import { login, useMyContextController } from "../store"  
+import { login, useMyContextController } from "../index"  
 import { useEffect, useState } from "react" 
 
 const Login = ({navigation})=>{

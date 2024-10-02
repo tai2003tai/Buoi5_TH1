@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { logout, useMyContextController } from "../store";
+import { logout, useMyContextController } from "../index";
 
 const Setting = ({ navigation }) => {
   const [controller, dispatch] = useMyContextController();
